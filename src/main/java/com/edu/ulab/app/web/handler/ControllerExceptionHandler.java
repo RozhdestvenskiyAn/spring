@@ -1,5 +1,6 @@
 package com.edu.ulab.app.web.handler;
 
+import com.edu.ulab.app.exception.BookNotFoundException;
 import com.edu.ulab.app.exception.NotFoundException;
 import com.edu.ulab.app.exception.UserNotFoundException;
 import com.edu.ulab.app.web.response.BaseWebResponse;
@@ -21,10 +22,18 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new BaseWebResponse(createErrorMessage(exc)));
     }
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<BaseWebResponse> handleUserNotFoundException(@NonNull final UserNotFoundException exc) {
         log.error(exc.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new BaseWebResponse(createErrorMessage(exc)));
+    }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<BaseWebResponse> handleBookNotFoundException(@NonNull final BookNotFoundException exc) {
+        log.error(exc.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new BaseWebResponse(createErrorMessage(exc)));
     }
 
