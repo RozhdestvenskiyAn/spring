@@ -1,12 +1,13 @@
-package com.edu.ulab.app.dto;
-
+package com.edu.ulab.app.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
-public class BookDto {
+public class Book {
     private Long id;
-    private Long userId;
+    @ToString.Exclude
+    private User user;
     private String title;
     private String author;
     private long pageCount;
